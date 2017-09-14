@@ -22,7 +22,7 @@ namespace forest {
                 node *root;
         public:
                 red_black_tree() {
-
+                        root = nullptr;
                 }
                 ~red_black_tree() {
 
