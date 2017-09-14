@@ -20,7 +20,7 @@ namespace forest {
                 node *root;
         public:
                 binary_search_tree() {
-
+                        root = nullptr;
                 }
                 ~binary_search_tree() {
 
