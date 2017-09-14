@@ -18,20 +18,12 @@ namespace forest {
                         node *parent;
                         node *left;
                         node *right;
-                };
-                node *root;
-        public:
-                red_black_tree() {
-                        root = nullptr;
-                }
-                ~red_black_tree() {
-
-                }
+                } *root;
                 void pre_order_traversal(node *n) {
                         if (n == nullptr) return;
                         // process the node n
-                        in_order_traversal(n->left);
-                        in_order_traversal(n->right);
+                        pre_order_traversal(n->left);
+                        pre_order_traversal(n->right);
                 }
                 void in_order_traversal(node *n) {
                         if (n == nullptr) return;
@@ -41,9 +33,25 @@ namespace forest {
                 }
                 void post_order_traversal(node *n) {
                         if (n == nullptr) return;
-                        in_order_traversal(n->left);
-                        in_order_traversal(n->right);
+                        post_order_traversal(n->left);
+                        post_order_traversal(n->right);
                         // process the node n
+                }
+        public:
+                red_black_tree() {
+                        root = nullptr;
+                }
+                ~red_black_tree() {
+
+                }
+                void pre_order_traversal() {
+                        pre_order_traversal(root);
+                }
+                void in_order_traversal() {
+                        in_order_traversal(root);
+                }
+                void post_order_traversal() {
+                        post_order_traversal(root);
                 }
         };
 }
