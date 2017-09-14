@@ -22,7 +22,7 @@ namespace forest {
                 node *root;
         public:
                 splay_tree() {
-
+                        root = nullptr;
                 }
                 ~splay_tree() {
 
