@@ -27,14 +27,23 @@ namespace forest {
                 ~avl_tree() {
 
                 }
-                void pre_order_traversal() {
-
+                void pre_order_traversal(node *n) {
+                        if (n == nullptr) return;
+                        // process the node n
+                        in_order_traversal(n->left);
+                        in_order_traversal(n->right);
                 }
-                void in_order_traversal() {
-
+                void in_order_traversal(node *n) {
+                        if (n == nullptr) return;
+                        in_order_traversal(n->left);
+                        // process the node n
+                        in_order_traversal(n->right);
                 }
-                void post_order_traversal() {
-
+                void post_order_traversal(node *n) {
+                        if (n == nullptr) return;
+                        in_order_traversal(n->left);
+                        in_order_traversal(n->right);
+                        // process the node n
                 }
         };
 }
