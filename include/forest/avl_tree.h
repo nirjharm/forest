@@ -22,7 +22,7 @@ namespace forest {
                 node *root;
         public:
                 avl_tree() {
-
+                        root = nullptr;
                 }
                 ~avl_tree() {
 
