@@ -17,6 +17,7 @@ namespace forest {
                         node *left;
                         node *right;
                 } *root;
+                unsigned long long nodes;
                 void pre_order_traversal(node *n) {
                         if (n == nullptr) return;
                         // process the node n
@@ -38,6 +39,7 @@ namespace forest {
         public:
                 binary_search_tree() {
                         root = nullptr;
+                        nodes = 0;
                 }
                 ~binary_search_tree() {
 

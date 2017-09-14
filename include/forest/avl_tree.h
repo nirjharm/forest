@@ -19,6 +19,7 @@ namespace forest {
                         node *left;
                         node *right;
                 } *root;
+                unsigned long long nodes;
                 void pre_order_traversal(node *n) {
                         if (n == nullptr) return;
                         // process the node n
@@ -40,6 +41,7 @@ namespace forest {
         public:
                 avl_tree() {
                         root = nullptr;
+                        nodes = 0;
                 }
                 ~avl_tree() {
 
