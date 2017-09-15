@@ -1,6 +1,8 @@
 #ifndef BINARY_SEARCH_TREE_H
 #define BINARY_SEARCH_TREE_H
 
+#include <iostream>
+
 namespace forest {
         namespace binary_search {
                 template <typename key_t, typename value_t>
@@ -23,21 +25,21 @@ namespace forest {
                         unsigned long long nodes;
                         void pre_order_traversal(node <key_t, value_t> *n) {
                                 if (n == nullptr) return;
-                                // process the node n
+                                std::cout << n->key << " " << n->value << std::endl;
                                 pre_order_traversal(n->left);
                                 pre_order_traversal(n->right);
                         }
                         void in_order_traversal(node <key_t, value_t> *n) {
                                 if (n == nullptr) return;
                                 in_order_traversal(n->left);
-                                // process the node n
+                                std::cout << n->key << " " << n->value << std::endl;
                                 in_order_traversal(n->right);
                         }
                         void post_order_traversal(node <key_t, value_t> *n) {
                                 if (n == nullptr) return;
                                 post_order_traversal(n->left);
                                 post_order_traversal(n->right);
-                                // process the node n
+                                std::cout << n->key << " " << n->value << std::endl;
                         }
                 public:
                         tree() {
@@ -55,6 +57,48 @@ namespace forest {
                         }
                         void post_order_traversal() {
                                 post_order_traversal(root);
+                        }
+                        void insert(key_t key, value_t value) {
+                                if (root == nullptr) {
+                                        ++nodes;
+                                        root = new node <key_t, value_t> (key, value);
+                                } else {
+                                        node <key_t, value_t> *previous = nullptr;
+                                        node <key_t, value_t> *current = root;
+                                        while (current != nullptr) {
+                                                previous = current;
+                                                if (key < current->key) {
+                                                        current = current->left;
+                                                } else if (key > current->key) {
+                                                        current = current->right;
+                                                } else {
+                                                        break;
+                                                }
+                                        }
+                                        if (key < previous->key) {
+                                                ++nodes;
+                                                previous->left = new node <key_t, value_t> (key, value);
+                                        } else if (key > previous->key) {
+                                                ++nodes;
+                                                previous->right = new node <key_t, value_t> (key, value);
+                                        }
+                                }
+                        }
+                        bool contains(key_t key) {
+                                return (search(key) == nullptr) ? true : false;
+                        }
+                        node <key_t, value_t> *search(key_t key) {
+                                node <key_t, value_t> *n = root;
+                                while (n != nullptr) {
+                                        if (key > n->key) {
+                                                n = n->right;
+                                        } else if (key < n->key) {
+                                                n = n->left;
+                                        } else {
+                                                return n;
+                                        }
+                                }
+                                return nullptr;
                         }
                 };
         }
