@@ -4,7 +4,7 @@
 #include <iostream>
 
 namespace forest {
-        namespace splay {
+        namespace splay_tree {
                 template <typename key_t, typename value_t>
                 struct node {
                         key_t key;
