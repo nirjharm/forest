@@ -22,7 +22,6 @@ namespace forest {
                 class tree {
                 private:
                         node <key_t, value_t> *root;
-                        unsigned long long nodes;
                         void pre_order_traversal(node <key_t, value_t> *n) {
                                 if (n == nullptr) return;
                                 std::cout << n->key << " " << n->value << std::endl;
@@ -44,7 +43,6 @@ namespace forest {
                 public:
                         tree() {
                                 root = nullptr;
-                                nodes = 0;
                         }
                         ~tree() {
 
@@ -60,7 +58,6 @@ namespace forest {
                         }
                         void insert(key_t key, value_t value) {
                                 if (root == nullptr) {
-                                        ++nodes;
                                         root = new node <key_t, value_t> (key, value);
                                 } else {
                                         node <key_t, value_t> *previous = nullptr;
@@ -76,10 +73,8 @@ namespace forest {
                                                 }
                                         }
                                         if (key < previous->key) {
-                                                ++nodes;
                                                 previous->left = new node <key_t, value_t> (key, value);
                                         } else if (key > previous->key) {
-                                                ++nodes;
                                                 previous->right = new node <key_t, value_t> (key, value);
                                         }
                                 }
