@@ -161,7 +161,7 @@ namespace forest {
                                 splay(current);
                         }
                         bool contains(key_t key) {
-                                return (search(key) == nullptr) ? true : false;
+                                return (search(key) != nullptr) ? true : false;
                         }
                         node <key_t, value_t> *search(key_t key) {
                                 node <key_t, value_t> *x = root;
