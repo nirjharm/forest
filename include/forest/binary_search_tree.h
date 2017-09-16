@@ -10,11 +10,13 @@ namespace forest {
                         node(key_t key, value_t value) {
                                 this->key = key;
                                 this->value = value;
+                                this->parent = nullptr;
                                 this->left = nullptr;
                                 this->right = nullptr;
                         }
                         key_t key;
                         value_t value;
+                        node *parent;
                         node *left;
                         node *right;
                 };
@@ -22,23 +24,23 @@ namespace forest {
                 class tree {
                 private:
                         node <key_t, value_t> *root;
-                        void pre_order_traversal(node <key_t, value_t> *n) {
-                                if (n == nullptr) return;
-                                std::cout << n->key << " " << n->value << std::endl;
-                                pre_order_traversal(n->left);
-                                pre_order_traversal(n->right);
+                        void pre_order_traversal(node <key_t, value_t> *x) {
+                                if (x == nullptr) return;
+                                std::cout << x->key << " " << x->value << std::endl;
+                                pre_order_traversal(x->left);
+                                pre_order_traversal(x->right);
                         }
-                        void in_order_traversal(node <key_t, value_t> *n) {
-                                if (n == nullptr) return;
-                                in_order_traversal(n->left);
-                                std::cout << n->key << " " << n->value << std::endl;
-                                in_order_traversal(n->right);
+                        void in_order_traversal(node <key_t, value_t> *x) {
+                                if (x == nullptr) return;
+                                in_order_traversal(x->left);
+                                std::cout << x->key << " " << x->value << std::endl;
+                                in_order_traversal(x->right);
                         }
-                        void post_order_traversal(node <key_t, value_t> *n) {
-                                if (n == nullptr) return;
-                                post_order_traversal(n->left);
-                                post_order_traversal(n->right);
-                                std::cout << n->key << " " << n->value << std::endl;
+                        void post_order_traversal(node <key_t, value_t> *x) {
+                                if (x == nullptr) return;
+                                post_order_traversal(x->left);
+                                post_order_traversal(x->right);
+                                std::cout << x->key << " " << x->value << std::endl;
                         }
                 public:
                         tree() {
@@ -57,40 +59,38 @@ namespace forest {
                                 post_order_traversal(root);
                         }
                         void insert(key_t key, value_t value) {
-                                if (root == nullptr) {
-                                        root = new node <key_t, value_t> (key, value);
-                                } else {
-                                        node <key_t, value_t> *previous = nullptr;
-                                        node <key_t, value_t> *current = root;
-                                        while (current != nullptr) {
-                                                previous = current;
-                                                if (key < current->key) {
-                                                        current = current->left;
-                                                } else if (key > current->key) {
-                                                        current = current->right;
-                                                } else {
-                                                        break;
-                                                }
+                                node <key_t, value_t> *current = root;
+                                node <key_t, value_t> *previous = nullptr;
+                                while(current!=nullptr) {
+                                        previous = current;
+                                        if (key > current->key) {
+                                                current = current->right;
+                                        } else if (key < current->key) {
+                                                current = current->left;
                                         }
-                                        if (key < previous->key) {
-                                                previous->left = new node <key_t, value_t> (key, value);
-                                        } else if (key > previous->key) {
-                                                previous->right = new node <key_t, value_t> (key, value);
-                                        }
+                                }
+                                current = new node <key_t, value_t> (key, value);
+                                current->parent = previous;
+                                if(previous == nullptr) {
+                                        root = current;
+                                } else if (current->key > previous->key) {
+                                        previous->right = current;
+                                } else if (current->key < previous->key) {
+                                        previous->left = current;
                                 }
                         }
                         bool contains(key_t key) {
                                 return (search(key) == nullptr) ? true : false;
                         }
                         node <key_t, value_t> *search(key_t key) {
-                                node <key_t, value_t> *n = root;
-                                while (n != nullptr) {
-                                        if (key > n->key) {
-                                                n = n->right;
-                                        } else if (key < n->key) {
-                                                n = n->left;
+                                node <key_t, value_t> *x = root;
+                                while (x != nullptr) {
+                                        if (key > x->key) {
+                                                x = x->right;
+                                        } else if (key < x->key) {
+                                                x = x->left;
                                         } else {
-                                                return n;
+                                                return x;
                                         }
                                 }
                                 return nullptr;
