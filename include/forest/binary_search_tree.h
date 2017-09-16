@@ -19,6 +19,24 @@ namespace forest {
                                 this->left = nullptr;
                                 this->right = nullptr;
                         }
+                        void info() {
+                                std::cout << this->key << "\t";
+                                if (this->left != nullptr) {
+                                        std::cout << this->left->key << "\t";
+                                } else {
+                                        std::cout << "null" << "\t";
+                                }
+                                if (this->right != nullptr) {
+                                        std::cout << this->right->key << "\t";
+                                } else {
+                                        std::cout << "null" << "\t";
+                                }
+                                if (this->parent != nullptr) {
+                                        std::cout << this->parent->key << std::endl;
+                                } else {
+                                        std::cout << "null" << std::endl;
+                                }
+                        }
                 };
                 template <typename key_t, typename value_t>
                 class tree {
@@ -26,21 +44,21 @@ namespace forest {
                         node <key_t, value_t> *root;
                         void pre_order_traversal(node <key_t, value_t> *x) {
                                 if (x == nullptr) return;
-                                std::cout << x->key << " " << x->value << std::endl;
+                                x->info();
                                 pre_order_traversal(x->left);
                                 pre_order_traversal(x->right);
                         }
                         void in_order_traversal(node <key_t, value_t> *x) {
                                 if (x == nullptr) return;
                                 in_order_traversal(x->left);
-                                std::cout << x->key << " " << x->value << std::endl;
+                                x->info();
                                 in_order_traversal(x->right);
                         }
                         void post_order_traversal(node <key_t, value_t> *x) {
                                 if (x == nullptr) return;
                                 post_order_traversal(x->left);
                                 post_order_traversal(x->right);
-                                std::cout << x->key << " " << x->value << std::endl;
+                                x->info();
                         }
                 public:
                         tree() {
