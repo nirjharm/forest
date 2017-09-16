@@ -14,17 +14,17 @@ g++ main.cpp -I forest/include -std=c++11
 
 ```
 #include <forest/splay_tree.h>
-#include <cstdlib>
-#include <ctime>
 
 int main(int argc, char const *argv[]) {
-        srand(time(0));
+        forest::splay_tree::tree <int, int> splay_tree;
 
-        forest::splay::tree <int, int> splay_tree;
-
-        for (size_t i = 0; i < 10; i++) {
-                splay_tree.insert(rand()%10000, 0);
-        }
+        splay_tree.insert(4, -32);
+        splay_tree.insert(2, 12);
+        splay_tree.insert(90, -2);
+        splay_tree.insert(3, -12);
+        splay_tree.insert(0, 22);
+        splay_tree.insert(14, 23);
+        splay_tree.insert(45, 22);
 
         splay_tree.in_order_traversal();
 
