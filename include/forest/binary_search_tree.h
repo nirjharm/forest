@@ -7,6 +7,11 @@ namespace forest {
         namespace binary_search {
                 template <typename key_t, typename value_t>
                 struct node {
+                        key_t key;
+                        value_t value;
+                        node *parent;
+                        node *left;
+                        node *right;
                         node(key_t key, value_t value) {
                                 this->key = key;
                                 this->value = value;
@@ -14,11 +19,6 @@ namespace forest {
                                 this->left = nullptr;
                                 this->right = nullptr;
                         }
-                        key_t key;
-                        value_t value;
-                        node *parent;
-                        node *left;
-                        node *right;
                 };
                 template <typename key_t, typename value_t>
                 class tree {
