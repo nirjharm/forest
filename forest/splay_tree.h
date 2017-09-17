@@ -5,16 +5,14 @@
 
 namespace forest {
         namespace splay_tree {
-                template <typename key_t, typename value_t>
+                template <typename key_t>
                 struct node {
                         key_t key;
-                        value_t value;
                         node *parent;
                         node *left;
                         node *right;
-                        node(key_t key, value_t value) {
+                        node(key_t key) {
                                 this->key = key;
-                                this->value = value;
                                 this->parent = nullptr;
                                 this->left = nullptr;
                                 this->right = nullptr;
@@ -38,30 +36,30 @@ namespace forest {
                                 }
                         }
                 };
-                template <typename key_t, typename value_t>
+                template <typename key_t>
                 class tree {
                 private:
-                        node <key_t, value_t> *root;
-                        void pre_order_traversal(node <key_t, value_t> *x) {
+                        node <key_t> *root;
+                        void pre_order_traversal(node <key_t> *x) {
                                 if (x == nullptr) return;
                                 x->info();
                                 pre_order_traversal(x->left);
                                 pre_order_traversal(x->right);
                         }
-                        void in_order_traversal(node <key_t, value_t> *x) {
+                        void in_order_traversal(node <key_t> *x) {
                                 if (x == nullptr) return;
                                 in_order_traversal(x->left);
                                 x->info();
                                 in_order_traversal(x->right);
                         }
-                        void post_order_traversal(node <key_t, value_t> *x) {
+                        void post_order_traversal(node <key_t> *x) {
                                 if (x == nullptr) return;
                                 post_order_traversal(x->left);
                                 post_order_traversal(x->right);
                                 x->info();
                         }
-                        void left_rotate(node <key_t, value_t> *x) {
-                                node <key_t, value_t> *y = x->right;
+                        void left_rotate(node <key_t> *x) {
+                                node <key_t> *y = x->right;
                                 if(y != nullptr) {
                                         x->right = y->left;
                                         if(y->left) y->left->parent = x;
@@ -80,8 +78,8 @@ namespace forest {
                                 }
                                 x->parent = y;
                         }
-                        void right_rotate(node <key_t, value_t> *x) {
-                                node <key_t, value_t> *y = x->left;
+                        void right_rotate(node <key_t> *x) {
+                                node <key_t> *y = x->left;
                                 if (y != nullptr) {
                                         x->left = y->right;
                                         if (y->right) y->right->parent = x;
@@ -99,7 +97,7 @@ namespace forest {
                                 }
                                 x->parent = y;
                         }
-                        void splay(node <key_t, value_t> *x) {
+                        void splay(node <key_t> *x) {
                                 while (x->parent) {
                                         if (x->parent->parent == nullptr) {
                                                 if (x->parent->left == x) {
@@ -138,9 +136,9 @@ namespace forest {
                         void post_order_traversal() {
                                 post_order_traversal(root);
                         }
-                        void insert(key_t key, value_t value) {
-                                node <key_t, value_t> *current = root;
-                                node <key_t, value_t> *previous = nullptr;
+                        void insert(key_t key) {
+                                node <key_t> *current = root;
+                                node <key_t> *previous = nullptr;
                                 while(current!=nullptr) {
                                         previous = current;
                                         if (key > current->key) {
@@ -149,7 +147,7 @@ namespace forest {
                                                 current = current->left;
                                         }
                                 }
-                                current = new node <key_t, value_t> (key, value);
+                                current = new node <key_t> (key);
                                 current->parent = previous;
                                 if(previous == nullptr) {
                                         root = current;
@@ -163,8 +161,8 @@ namespace forest {
                         bool contains(key_t key) {
                                 return (search(key) != nullptr) ? true : false;
                         }
-                        node <key_t, value_t> *search(key_t key) {
-                                node <key_t, value_t> *x = root;
+                        node <key_t> *search(key_t key) {
+                                node <key_t> *x = root;
                                 while (x != nullptr) {
                                         if (key > x->key) {
                                                 x = x->right;
