@@ -60,13 +60,12 @@ namespace forest {
                                 x->info();
                         }
                         unsigned long long height(node <key_t> *x) {
-                                unsigned long long tree_height = 0;
-                                if (x != nullptr) {
-                                        unsigned long long left_height = height(x->left);
-                                        unsigned long long right_height = height(x->right);
-                                        tree_height = std::max(left_height, right_height) + 1;
-                                }
-                                return tree_height;
+                                if (x == nullptr) return 0;
+                                return std::max(height(x->left), height(x->right)) + 1;
+                        }
+                        unsigned long long size(node <key_t> *x) {
+                                if (x == nullptr) return 0;
+                                return size(x->left) + size(x->right) + 1;
                         }
                 public:
                         tree() {
@@ -123,16 +122,22 @@ namespace forest {
                         }
                         node <key_t> *minimum() {
                                 node <key_t> *x = root;
+                                if (x == nullptr) return nullptr;
                                 while(x->left != nullptr) x = x->left;
+                                std::cout << "ok" << std::endl;
                                 return x;
                         }
                         node <key_t> *maximum() {
                                 node <key_t> *x = root;
+                                if (x == nullptr) return nullptr;
                                 while(x->right != nullptr) x = x->right;
                                 return x;
                         }
                         unsigned long long height() {
                                 return height(root);
+                        }
+                        unsigned long long size() {
+                                return size(root);
                         }
                 };
         }
