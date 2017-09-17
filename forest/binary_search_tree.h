@@ -59,6 +59,18 @@ namespace forest {
                                 post_order_traversal(x->right);
                                 x->info();
                         }
+                        void breadth_first_traversal(node <key_t> *x) {
+                                std::queue <node <key_t> *> queue;
+                                if (x == nullptr) return;
+                                queue.push(x);
+                                while(queue.size() > 0) {
+                                        node <key_t> *y = queue.front();
+                                        y->info();
+                                        queue.pop();
+                                        if (y->left != nullptr) queue.push(y->left);
+                                        if (y->right != nullptr) queue.push(y->right);
+                                }
+                        }
                         unsigned long long height(node <key_t> *x) {
                                 if (x == nullptr) return 0;
                                 return std::max(height(x->left), height(x->right)) + 1;
@@ -82,6 +94,9 @@ namespace forest {
                         }
                         void post_order_traversal() {
                                 post_order_traversal(root);
+                        }
+                        void breadth_first_traversal() {
+                                breadth_first_traversal(root);
                         }
                         void insert(key_t key) {
                                 node <key_t> *current = root;
