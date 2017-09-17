@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <algorithm>
+#include <queue>
 
 namespace forest {
         namespace binary_search_tree {
