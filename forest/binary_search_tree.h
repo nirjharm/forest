@@ -111,6 +111,16 @@ namespace forest {
                                 }
                                 return nullptr;
                         }
+                        node <key_t> *minimum() {
+                                node <key_t> *x = root;
+                                while(x->left != nullptr) x = x->left;
+                                return x;
+                        }
+                        node <key_t> *maximum() {
+                                node <key_t> *x = root;
+                                while(x->right != nullptr) x = x->right;
+                                return x;
+                        }
                 };
         }
 }
