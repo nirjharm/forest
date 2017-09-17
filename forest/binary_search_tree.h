@@ -2,6 +2,7 @@
 #define BINARY_SEARCH_TREE_H
 
 #include <iostream>
+#include <algorithm>
 
 namespace forest {
         namespace binary_search_tree {
@@ -57,6 +58,15 @@ namespace forest {
                                 post_order_traversal(x->left);
                                 post_order_traversal(x->right);
                                 x->info();
+                        }
+                        unsigned long long height(node <key_t> *x) {
+                                unsigned long long tree_height = 0;
+                                if (x != nullptr) {
+                                        unsigned long long left_height = height(x->left);
+                                        unsigned long long right_height = height(x->right);
+                                        tree_height = std::max(left_height, right_height) + 1;
+                                }
+                                return tree_height;
                         }
                 public:
                         tree() {
@@ -120,6 +130,9 @@ namespace forest {
                                 node <key_t> *x = root;
                                 while(x->right != nullptr) x = x->right;
                                 return x;
+                        }
+                        unsigned long long height() {
+                                return height(root);
                         }
                 };
         }
