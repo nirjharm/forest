@@ -155,6 +155,13 @@ namespace forest {
                         unsigned long long size() {
                                 return size(root);
                         }
+                        bool empty() {
+                                if (root == nullptr) {
+                                        return true;
+                                } else {
+                                        return false;
+                                }
+                        }
                 };
         }
 }
