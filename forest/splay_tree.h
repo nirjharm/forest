@@ -163,9 +163,9 @@ namespace forest {
                         }
                         void insert(key_t key) {
                                 node <key_t> *current = root;
-                                node <key_t> *previous = nullptr;
+                                node <key_t> *parent = nullptr;
                                 while(current!=nullptr) {
-                                        previous = current;
+                                        parent = current;
                                         if (key > current->key) {
                                                 current = current->right;
                                         } else if (key < current->key) {
@@ -173,13 +173,13 @@ namespace forest {
                                         }
                                 }
                                 current = new node <key_t> (key);
-                                current->parent = previous;
-                                if(previous == nullptr) {
+                                current->parent = parent;
+                                if(parent == nullptr) {
                                         root = current;
-                                } else if (current->key > previous->key) {
-                                        previous->right = current;
-                                } else if (current->key < previous->key) {
-                                        previous->left = current;
+                                } else if (current->key > parent->key) {
+                                        parent->right = current;
+                                } else if (current->key < parent->key) {
+                                        parent->left = current;
                                 }
                                 splay(current);
                         }
