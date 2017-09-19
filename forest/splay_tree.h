@@ -199,9 +199,9 @@ namespace forest {
                          * @brief Inserts a new node into the splay tree
                          * @param key The key for the new node
                          * @param value The value for the new node
-                         * @return void
+                         * @return true if the new node was inserted and false otherwise
                          */
-                        void insert(key_t key, value_t value) {
+                        bool insert(key_t key, value_t value) {
                                 node <key_t, value_t> *current = root;
                                 node <key_t, value_t> *parent = nullptr;
                                 while(current!=nullptr) {
@@ -211,7 +211,7 @@ namespace forest {
                                         } else if (key < current->key) {
                                                 current = current->left;
                                         } else {
-                                                return;
+                                                return false;
                                         }
                                 }
                                 current = new node <key_t, value_t> (key, value);
@@ -224,6 +224,7 @@ namespace forest {
                                         parent->left = current;
                                 }
                                 splay(current);
+                                return true;
                         }
                         /**
                          * @brief Performs a binary search starting from the root node
