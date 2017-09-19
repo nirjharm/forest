@@ -197,8 +197,8 @@ namespace forest {
                         }
                         /**
                          * @brief Inserts a new node into the splay tree
-                         * @param key is the key for the new node
-                         * @param value is the value for the new node
+                         * @param key The key for the new node
+                         * @param value The value for the new node
                          * @return void
                          */
                         void insert(key_t key, value_t value) {
