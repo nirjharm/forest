@@ -1,3 +1,7 @@
+/**
+ * @file binary_search_tree.h
+ */
+
 #ifndef BINARY_SEARCH_TREE_H
 #define BINARY_SEARCH_TREE_H
 
@@ -5,15 +9,24 @@
 #include <algorithm>
 #include <queue>
 
+/**
+ * @brief The forest library namespace
+ */
 namespace forest {
+        /**
+         * @brief The binary search tree namespace
+         */
         namespace binary_search_tree {
+                /**
+                 * @brief A struct template that represents a node of a binary search tree
+                 */
                 template <typename key_t, typename value_t>
                 struct node {
-                        key_t key;
-                        value_t value;
-                        node *parent;
-                        node *left;
-                        node *right;
+                        key_t key;     ///< The key of the node
+                        value_t value; ///< The value of the node
+                        node *parent;  ///< A pointer to the parent of the node
+                        node *left;    ///< A pointer to the left child of the node
+                        node *right;   ///< A pointer to the right child of the node
                         node(key_t key, value_t value) {
                                 this->key = key;
                                 this->value = value;
@@ -40,6 +53,9 @@ namespace forest {
                                 }
                         }
                 };
+                /**
+                 * @brief A template class that represents a binary search tree
+                 */
                 template <typename key_t, typename value_t>
                 class tree {
                 private:
@@ -89,18 +105,40 @@ namespace forest {
                         ~tree() {
 
                         }
+                        /**
+                         * @brief Performs a Pre Order Traversal starting from the root node
+                         * @return void
+                         */
                         void pre_order_traversal() {
                                 pre_order_traversal(root);
                         }
+                        /**
+                         * @brief Performs a In Order Traversal starting from the root node
+                         * @return void
+                         */
                         void in_order_traversal() {
                                 in_order_traversal(root);
                         }
+                        /**
+                         * @brief Performs a Post Order Traversal starting from the root node
+                         * @return void
+                         */
                         void post_order_traversal() {
                                 post_order_traversal(root);
                         }
+                        /**
+                         * @brief Performs a Breadth First Traversal starting from the root node
+                         * @return void
+                         */
                         void breadth_first_traversal() {
                                 breadth_first_traversal(root);
                         }
+                        /**
+                         * @brief Inserts a new node into the binary search tree
+                         * @param key is the key for the new node
+                         * @param value is the value for the new node
+                         * @return void
+                         */
                         void insert(key_t key, value_t value) {
                                 node <key_t, value_t> *current = root;
                                 node <key_t, value_t> *parent = nullptr;
@@ -122,6 +160,9 @@ namespace forest {
                                         parent->left = current;
                                 }
                         }
+                        /**
+                         * @brief Performs a binary search starting from the root node
+                         */
                         bool search(key_t key, value_t *value) {
                                 node <key_t, value_t> *x = root;
                                 while (x != nullptr) {
@@ -136,6 +177,10 @@ namespace forest {
                                 }
                                 return false;
                         }
+                        /**
+                         * @brief Finds the node with the minimum key
+                         * @return true if the node with the minimum key exists and false otherwise
+                         */
                         bool minimum(key_t *key, value_t *value) {
                                 node <key_t, value_t> *x = root;
                                 if (x == nullptr) return false;
@@ -144,6 +189,10 @@ namespace forest {
                                 *value = x->value;
                                 return true;
                         }
+                        /**
+                         * @brief Finds the node with the maximum key
+                         * @return true if the node with the maximum key exists and false otherwise
+                         */
                         bool maximum(key_t *key, value_t *value) {
                                 node <key_t, value_t> *x = root;
                                 if (x == nullptr) return false;
@@ -152,12 +201,24 @@ namespace forest {
                                 *value = x->value;
                                 return true;
                         }
+                        /**
+                         * @brief Finds the height of the tree
+                         * @return The height of the subtree starting from the root node
+                         */
                         unsigned long long height() {
                                 return height(root);
                         }
+                        /**
+                         * @brief Finds the size of the tree
+                         * @return The size of the subtree starting from the root node
+                         */
                         unsigned long long size() {
                                 return size(root);
                         }
+                        /**
+                         * @brief Finds if the tree is empty
+                         * @return true if the tree is empty and false otherwise
+                         */
                         bool empty() {
                                 if (root == nullptr) {
                                         return true;
