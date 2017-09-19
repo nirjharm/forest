@@ -210,6 +210,8 @@ namespace forest {
                                                 current = current->right;
                                         } else if (key < current->key) {
                                                 current = current->left;
+                                        } else {
+                                                return;
                                         }
                                 }
                                 current = new node <key_t, value_t> (key, value);
