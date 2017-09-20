@@ -32,17 +32,25 @@ int main(int argc, char const *argv[]) {
         splay_tree.breadth_first_traversal();
         std::cout << std::endl;
 
-        int key, value;
+        auto min = splay_tree.minimum();
+        std::cout << "Minimum: " << min->key << std::endl;
 
-        splay_tree.minimum(&key, &value);
-        std::cout << "minimum: (" << key << ", " << value << ")" << std::endl;
+        auto max = splay_tree.maximum();
+        std::cout << "Maximum: " << max->key << std::endl;
 
-        splay_tree.maximum(&key, &value);
-        std::cout << "maximum: (" << key << ", " << value << ")" << std::endl;
+        std::cout << "Height: " << splay_tree.height() << std::endl;
 
-        std::cout << "height: " << splay_tree.height() << std::endl;
-        std::cout << "size: " << splay_tree.size() << std::endl;
-	std::cout << "empty: " << (splay_tree.empty() ? "yes" : "no") << std::endl;
+        std::cout << "Size: " << splay_tree.size() << std::endl;
+
+	std::cout << "Empty: " << (splay_tree.empty() ? "yes" : "no") << std::endl;
+
+        auto n = splay_tree.search(3);
+        if (n != nullptr) {
+                std::cout << std::endl;
+                std::cout << "Searching for node with key 3" << std::endl;
+                std::cout << std::endl;
+                n->info();
+        }
 
         return 0;
 }

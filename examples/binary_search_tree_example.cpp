@@ -32,19 +32,25 @@ int main(int argc, char const *argv[]) {
         binary_search_tree.breadth_first_traversal();
         std::cout << std::endl;
 
-        int key, value;
+        auto min = binary_search_tree.minimum();
+        std::cout << "Minimum: " << min->key << std::endl;
 
-        binary_search_tree.minimum(&key, &value);
-        std::cout << "minimum: (" << key << ", " << value << ")" << std::endl;
+        auto max = binary_search_tree.maximum();
+        std::cout << "Maximum: " << max->key << std::endl;
 
-        binary_search_tree.maximum(&key, &value);
-        std::cout << "maximum: (" << key << ", " << value << ")" << std::endl;
+        std::cout << "Height: " << binary_search_tree.height() << std::endl;
 
-        std::cout << "height: " << binary_search_tree.height() << std::endl;
+        std::cout << "Size: " << binary_search_tree.size() << std::endl;
 
-        std::cout << "size: " << binary_search_tree.size() << std::endl;
+	std::cout << "Empty: " << (binary_search_tree.empty() ? "yes" : "no") << std::endl;
 
-	std::cout << "empty: " << (binary_search_tree.empty() ? "yes" : "no") << std::endl;
-
+        auto n = binary_search_tree.search(3);
+        if (n != nullptr) {
+                std::cout << std::endl;
+                std::cout << "Searching for node with key 3" << std::endl;
+                std::cout << std::endl;
+                n->info();
+        }
+        
         return 0;
 }
