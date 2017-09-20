@@ -15,12 +15,16 @@ SCENARIO("Test Binary Search Tree") {
                                 REQUIRE(binary_search_tree.height() == 0);
                         }
                         THEN("Test maximum") {
-                                int key, value;
-                                REQUIRE(binary_search_tree.maximum(&key, &value) == false);
+                                auto max = binary_search_tree.maximum();
+                                REQUIRE(max == nullptr);
                         }
                         THEN("Test minimum") {
-                                int key, value;
-                                REQUIRE(binary_search_tree.minimum(&key, &value) == false);
+                                auto min = binary_search_tree.minimum();
+                                REQUIRE(min == nullptr);
+                        }
+                        THEN("Test search for a node that does not exist") {
+                                auto result = binary_search_tree.search(555);
+                                REQUIRE(result == nullptr);
                         }
                 }
                 WHEN("The Binary Search Tree is not empty") {
@@ -41,16 +45,26 @@ SCENARIO("Test Binary Search Tree") {
                                 REQUIRE(binary_search_tree.height() == 4);
                         }
                         THEN("Test maximum") {
-                                int key, value;
-                                REQUIRE(binary_search_tree.maximum(&key, &value) == true);
-                                REQUIRE(key == 90);
-                                REQUIRE(value == -74);
+                                auto max = binary_search_tree.maximum();
+                                REQUIRE(max != nullptr);
+                                REQUIRE(max->key == 90);
+                                REQUIRE(max->value == -74);
                         }
                         THEN("Test minimum") {
-                                int key, value;
-                                REQUIRE(binary_search_tree.minimum(&key, &value) == true);
-                                REQUIRE(key == 0);
-                                REQUIRE(value == -110);
+                                auto min = binary_search_tree.minimum();
+                                REQUIRE(min != nullptr);
+                                REQUIRE(min->key == 0);
+                                REQUIRE(min->value == -110);
+                        }
+                        THEN("Test search for a node that does not exist") {
+                                auto result = binary_search_tree.search(1337);
+                                REQUIRE(result == nullptr);
+                        }
+                        THEN("Test search for a node that does exist") {
+                                auto result = binary_search_tree.search(3);
+                                REQUIRE(result != nullptr);
+                                REQUIRE(result->key == 3);
+                                REQUIRE(result->value == 1);
                         }
                 }
         }
