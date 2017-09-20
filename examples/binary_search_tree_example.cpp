@@ -33,16 +33,10 @@ int main(int argc, char const *argv[]) {
         std::cout << std::endl;
 
         auto min = binary_search_tree.minimum();
-        std::cout << "Minimum" << std::endl;
-        std::cout << std::endl;
-        min->info();
-        std::cout << std::endl;
+        std::cout << "Minimum: " << min->key << std::endl;
 
         auto max = binary_search_tree.maximum();
-        std::cout << "Maximum" << std::endl;
-        std::cout << std::endl;
-        max->info();
-        std::cout << std::endl;
+        std::cout << "Maximum: " << max->key << std::endl;
 
         std::cout << "Height: " << binary_search_tree.height() << std::endl;
 
@@ -57,5 +51,6 @@ int main(int argc, char const *argv[]) {
                 std::cout << std::endl;
                 n->info();
         }
+        
         return 0;
 }
