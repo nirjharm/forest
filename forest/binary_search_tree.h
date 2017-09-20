@@ -34,7 +34,7 @@ namespace forest {
                                 this->left = nullptr;
                                 this->right = nullptr;
                         }
-                        void info() {
+                        void info() const {
                                 std::cout << this->key << "\t";
                                 if (this->left != nullptr) {
                                         std::cout << this->left->key << "\t";
@@ -165,8 +165,9 @@ namespace forest {
                         }
                         /**
                          * @brief Performs a binary search starting from the root node
+                         * @return The node with the key specified
                          */
-                        bool search(key_t key, value_t *value) {
+                        node <key_t, value_t> const *search(key_t key) {
                                 node <key_t, value_t> *x = root;
                                 while (x != nullptr) {
                                         if (key > x->key) {
@@ -174,35 +175,30 @@ namespace forest {
                                         } else if (key < x->key) {
                                                 x = x->left;
                                         } else {
-                                                *value = x->value;
-                                                return true;
+                                                return x;
                                         }
                                 }
-                                return false;
+                                return nullptr;
                         }
                         /**
                          * @brief Finds the node with the minimum key
-                         * @return true if the node with the minimum key exists and false otherwise
+                         * @return The node with the minimum key
                          */
-                        bool minimum(key_t *key, value_t *value) {
+                        node <key_t, value_t> const *minimum() {
                                 node <key_t, value_t> *x = root;
-                                if (x == nullptr) return false;
+                                if (x == nullptr) return nullptr;
                                 while(x->left != nullptr) x = x->left;
-                                *key = x->key;
-                                *value = x->value;
-                                return true;
+                                return x;
                         }
                         /**
                          * @brief Finds the node with the maximum key
-                         * @return true if the node with the maximum key exists and false otherwise
+                         * @return The node with the maximum key
                          */
-                        bool maximum(key_t *key, value_t *value) {
+                        node <key_t, value_t> const *maximum() {
                                 node <key_t, value_t> *x = root;
-                                if (x == nullptr) return false;
+                                if (x == nullptr) return nullptr;
                                 while(x->right != nullptr) x = x->right;
-                                *key = x->key;
-                                *value = x->value;
-                                return true;
+                                return x;
                         }
                         /**
                          * @brief Finds the height of the tree
