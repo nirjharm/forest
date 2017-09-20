@@ -167,7 +167,7 @@ namespace forest {
                          * @brief Performs a binary search starting from the root node
                          * @return The node with the key specified
                          */
-                        node <key_t, value_t> const *search(key_t key) {
+                        const node <key_t, value_t> *search(key_t key) {
                                 node <key_t, value_t> *x = root;
                                 while (x != nullptr) {
                                         if (key > x->key) {
@@ -184,7 +184,7 @@ namespace forest {
                          * @brief Finds the node with the minimum key
                          * @return The node with the minimum key
                          */
-                        node <key_t, value_t> const *minimum() {
+                        const node <key_t, value_t> *minimum() {
                                 node <key_t, value_t> *x = root;
                                 if (x == nullptr) return nullptr;
                                 while(x->left != nullptr) x = x->left;
@@ -194,7 +194,7 @@ namespace forest {
                          * @brief Finds the node with the maximum key
                          * @return The node with the maximum key
                          */
-                        node <key_t, value_t> const *maximum() {
+                        const node <key_t, value_t> *maximum() {
                                 node <key_t, value_t> *x = root;
                                 if (x == nullptr) return nullptr;
                                 while(x->right != nullptr) x = x->right;
