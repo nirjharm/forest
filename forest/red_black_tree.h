@@ -14,12 +14,12 @@
  */
 namespace forest {
         /**
-         * @brief The splay tree namespace
+         * @brief The red black tree namespace
          */
         namespace red_black_tree {
                 enum color_t {red, black};
                 /**
-                 * @brief A struct template that represents a node of a splay tree
+                 * @brief A struct template that represents a node of a red black tree
                  */
                 template <typename key_t, typename value_t>
                 struct node {
@@ -29,6 +29,9 @@ namespace forest {
                         node *parent;  ///< A pointer to the parent of the node
                         node *left;    ///< A pointer to the left child of the node
                         node *right;   ///< A pointer to the right child of the node
+                        /**
+                         * @brief Constructor of a red black tree node
+                         */
                         node(key_t key, value_t value, color_t color) {
                                 this->key = key;
                                 this->value = value;
@@ -37,8 +40,16 @@ namespace forest {
                                 this->left = nullptr;
                                 this->right = nullptr;
                         }
+                        /**
+                         * @brief Prints to the std::cout information about the node
+                         */
                         void info() const {
                                 std::cout << this->key << "\t";
+                                if (this->color == red) {
+                                        std::cout << "red" << "\t";
+                                } else if (this->color == black) {
+                                        std::cout << "black" << "\t";
+                                }
                                 if (this->left != nullptr) {
                                         std::cout << this->left->key << "\t";
                                 } else {
@@ -57,7 +68,7 @@ namespace forest {
                         }
                 };
                 /**
-                 * @brief A template class that represents a splay tree
+                 * @brief A template class that represents a red black tree
                  */
                 template <typename key_t, typename value_t>
                 class tree {
@@ -108,7 +119,6 @@ namespace forest {
                                         if(y->left != nullptr) y->left->parent = x;
                                         y->parent = x->parent;
                                 }
-
                                 if(x->parent == nullptr) {
                                         root = y;
                                 } else if (x == x->parent->left) {
@@ -119,6 +129,7 @@ namespace forest {
                                 if(y != nullptr) {
                                         y->left = x;
                                 }
+                                std::swap(x->color, y->color);
                                 x->parent = y;
                         }
                         void right_rotate(node <key_t, value_t> *x) {
@@ -138,6 +149,7 @@ namespace forest {
                                 if(y != nullptr) {
                                         y->right = x;
                                 }
+                                std::swap(x->color, y->color);
                                 x->parent = y;
                         }
                         node <key_t, value_t> *find_sibling(node <key_t, value_t> *x) {
@@ -221,7 +233,7 @@ namespace forest {
                                 breadth_first_traversal(root);
                         }
                         /**
-                         * @brief Inserts a new node into the splay tree
+                         * @brief Inserts a new node into the red black tree
                          * @param key The key for the new node
                          * @param value The value for the new node
                          * @return true if the new node was inserted and false otherwise
@@ -289,22 +301,22 @@ namespace forest {
                                 return x;
                         }
                         /**
-                         * @brief Finds the height of the tree
-                         * @return The height of the subtree starting from the root node
+                         * @brief Finds the height of the red black tree
+                         * @return The height of the red black tree
                          */
                         unsigned long long height() {
                                 return height(root);
                         }
                         /**
-                         * @brief Finds the size of the tree
-                         * @return The size of the subtree starting from the root node
+                         * @brief Finds the size of the red black tree
+                         * @return The size of the red black tree
                          */
                         unsigned long long size() {
                                 return size(root);
                         }
                         /**
-                         * @brief Finds if the tree is empty
-                         * @return true if the tree is empty and false otherwise
+                         * @brief Finds if the red black tree is empty
+                         * @return true if the red black tree is empty and false otherwise
                          */
                         bool empty() {
                                 if (root == nullptr) {
