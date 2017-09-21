@@ -137,26 +137,35 @@ namespace forest {
                                 }
                                 x->parent = y;
                         }
+                        node <key_t, value_t> *find_parent(node <key_t, value_t> *x) {
+                                return x->parent;
+                        }
+                        node <key_t, value_t> *find_grand_parent(node <key_t, value_t> *x) {
+                                if (find_parent(x) != nullptr) {
+                                        return find_parent(x)->parent;
+                                }
+                                return nullptr;
+                        }
                         void splay(node <key_t, value_t> *x) {
-                                while (x->parent != nullptr) {
-                                        if (x->parent->parent == nullptr) {
-                                                if (x->parent->left == x) {
-                                                        right_rotate(x->parent);
-                                                } else if (x->parent->right == x){
-                                                        left_rotate(x->parent);
+                                while (find_parent(x) != nullptr) {
+                                        if (find_grand_parent(x) == nullptr) {
+                                                if (find_parent(x)->left == x) {
+                                                        right_rotate(find_parent(x));
+                                                } else if (find_parent(x)->right == x){
+                                                        left_rotate(find_parent(x));
                                                 }
-                                        } else if (x->parent->left == x && x->parent->parent->left == x->parent) {
-                                                right_rotate(x->parent->parent);
-                                                right_rotate(x->parent);
-                                        } else if (x->parent->right == x && x->parent->parent->right == x->parent) {
-                                                left_rotate(x->parent->parent);
-                                                left_rotate(x->parent);
-                                        } else if (x->parent->left == x && x->parent->parent->right == x->parent) {
-                                                right_rotate(x->parent);
-                                                left_rotate(x->parent);
-                                        } else if (x->parent->right == x && x->parent->parent->left == x->parent){
-                                                left_rotate(x->parent);
-                                                right_rotate(x->parent);
+                                        } else if (find_parent(x)->left == x && find_grand_parent(x)->left == find_parent(x)) {
+                                                right_rotate(find_grand_parent(x));
+                                                right_rotate(find_parent(x));
+                                        } else if (find_parent(x)->right == x && find_grand_parent(x)->right == find_parent(x)) {
+                                                left_rotate(find_grand_parent(x));
+                                                left_rotate(find_parent(x));
+                                        } else if (find_parent(x)->left == x && find_grand_parent(x)->right == find_parent(x)) {
+                                                right_rotate(find_parent(x));
+                                                left_rotate(find_parent(x));
+                                        } else if (find_parent(x)->right == x && find_grand_parent(x)->left == find_parent(x)){
+                                                left_rotate(find_parent(x));
+                                                right_rotate(find_parent(x));
                                         }
                                 }
                         }
