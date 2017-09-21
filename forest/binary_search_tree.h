@@ -27,6 +27,9 @@ namespace forest {
                         node *parent;  ///< A pointer to the parent of the node
                         node *left;    ///< A pointer to the left child of the node
                         node *right;   ///< A pointer to the right child of the node
+                        /**
+                         * @brief Constructor of a binary search tree node
+                         */
                         node(key_t key, value_t value) {
                                 this->key = key;
                                 this->value = value;
@@ -34,6 +37,9 @@ namespace forest {
                                 this->left = nullptr;
                                 this->right = nullptr;
                         }
+                        /**
+                         * @brief Prints to the std::cout information about the node
+                         */
                         void info() const {
                                 std::cout << this->key << "\t";
                                 if (this->left != nullptr) {
@@ -202,21 +208,21 @@ namespace forest {
                         }
                         /**
                          * @brief Finds the height of the tree
-                         * @return The height of the subtree starting from the root node
+                         * @return The height of the binary search tree
                          */
                         unsigned long long height() {
                                 return height(root);
                         }
                         /**
                          * @brief Finds the size of the tree
-                         * @return The size of the subtree starting from the root node
+                         * @return The size of the binary search tree
                          */
                         unsigned long long size() {
                                 return size(root);
                         }
                         /**
-                         * @brief Finds if the tree is empty
-                         * @return true if the tree is empty and false otherwise
+                         * @brief Finds if the binary search tree is empty
+                         * @return true if the binary search tree is empty and false otherwise
                          */
                         bool empty() {
                                 if (root == nullptr) {
