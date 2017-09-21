@@ -27,6 +27,9 @@ namespace forest {
                         node *parent;  ///< A pointer to the parent of the node
                         node *left;    ///< A pointer to the left child of the node
                         node *right;   ///< A pointer to the right child of the node
+                        /**
+                         * @brief Constructor of a splay tree node
+                         */
                         node(key_t key, value_t value) {
                                 this->key = key;
                                 this->value = value;
@@ -34,6 +37,9 @@ namespace forest {
                                 this->left = nullptr;
                                 this->right = nullptr;
                         }
+                        /**
+                         * @brief Prints to the std::cout information about the node
+                         */
                         void info() const {
                                 std::cout << this->key << "\t";
                                 if (this->left != nullptr) {
@@ -105,7 +111,6 @@ namespace forest {
                                         if(y->left != nullptr) y->left->parent = x;
                                         y->parent = x->parent;
                                 }
-
                                 if(x->parent == nullptr) {
                                         root = y;
                                 } else if (x == x->parent->left) {
@@ -274,21 +279,21 @@ namespace forest {
                         }
                         /**
                          * @brief Finds the height of the tree
-                         * @return The height of the subtree starting from the root node
+                         * @return The height of the splay tree
                          */
                         unsigned long long height() {
                                 return height(root);
                         }
                         /**
                          * @brief Finds the size of the tree
-                         * @return The size of the subtree starting from the root node
+                         * @return The size of the splay tree
                          */
                         unsigned long long size() {
                                 return size(root);
                         }
                         /**
-                         * @brief Finds if the tree is empty
-                         * @return true if the tree is empty and false otherwise
+                         * @brief Finds if the splay tree is empty
+                         * @return true if the splay tree is empty and false otherwise
                          */
                         bool empty() {
                                 if (root == nullptr) {
