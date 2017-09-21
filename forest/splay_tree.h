@@ -102,7 +102,7 @@ namespace forest {
                                 node <key_t, value_t> *y = x->right;
                                 if(y != nullptr) {
                                         x->right = y->left;
-                                        if(y->left) y->left->parent = x;
+                                        if(y->left != nullptr) y->left->parent = x;
                                         y->parent = x->parent;
                                 }
 
@@ -122,7 +122,7 @@ namespace forest {
                                 node <key_t, value_t> *y = x->left;
                                 if (y != nullptr) {
                                         x->left = y->right;
-                                        if (y->right) y->right->parent = x;
+                                        if (y->right != nullptr) y->right->parent = x;
                                         y->parent = x->parent;
                                 }
                                 if(x->parent == nullptr) {
@@ -138,7 +138,7 @@ namespace forest {
                                 x->parent = y;
                         }
                         void splay(node <key_t, value_t> *x) {
-                                while (x->parent) {
+                                while (x->parent != nullptr) {
                                         if (x->parent->parent == nullptr) {
                                                 if (x->parent->left == x) {
                                                         right_rotate(x->parent);
