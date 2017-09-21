@@ -2,8 +2,8 @@
  * @file red_black_tree.h
  */
 
-#ifndef SPLAY_TREE_H
-#define SPLAY_TREE_H
+#ifndef RED_BLACK_TREE_H
+#define RED_BLACK_TREE_H
 
 #include <iostream>
 #include <algorithm>
