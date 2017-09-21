@@ -141,35 +141,25 @@ namespace forest {
                                 x->parent = y;
                         }
                         node <key_t, value_t> *find_sibling(node <key_t, value_t> *x) {
-                                if (x == x->parent->left) {
-                                        return x->parent->right;
-                                } else if (x == x->parent->right) {
-                                        return x->parent->left;
+                                if (x == find_parent(x)->left) {
+                                        return find_parent(x)->right;
+                                } else if (x == find_parent(x)->right) {
+                                        return find_parent(x)->left;
                                 }
+                                return nullptr;
                         }
                         node <key_t, value_t> *find_parent(node <key_t, value_t> *x) {
                                 return x->parent;
                         }
                         node <key_t, value_t> *find_grand_parent(node <key_t, value_t> *x) {
-                                if (x->parent == nullptr) {
-                                        return nullptr;
-                                } else {
-                                        return x->parent->parent;
+                                if (find_parent(x) != nullptr) {
+                                        return find_parent(x)->parent;
                                 }
+                                return nullptr;
                         }
                         node <key_t, value_t> *find_uncle(node <key_t, value_t> *x) {
-                                if (find_parent(x) != nullptr) {
-                                        if (find_grand_parent(x) != nullptr) {
-                                                if (find_parent(x) == find_grand_parent(x)->left) {
-                                                        return find_grand_parent(x)->right;
-                                                } else if (find_parent(x) == find_grand_parent(x)->right) {
-                                                        return find_grand_parent(x)->left;
-                                                }
-                                        } else {
-                                                return nullptr;
-                                        }
-                                } else {
-                                        return nullptr;
+                                if (find_grand_parent(x) != nullptr) {
+                                        return find_sibling(find_parent(x));
                                 }
                                 return nullptr;
                         }
@@ -177,7 +167,7 @@ namespace forest {
                                 node <key_t, value_t> *parent = find_parent(x);
                                 node <key_t, value_t> *grand_parent = find_grand_parent(x);
                                 node <key_t, value_t> *uncle = find_uncle(x);
-                                while ((x != root) && (x->color != black) && (parent->color == red)) {
+                                while (x != root && x->color != black && parent->color == red) {
                                         if (uncle != nullptr && uncle->color == red) {
                                                 grand_parent->color = red;
                                                 parent->color = black;
