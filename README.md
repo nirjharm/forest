@@ -35,7 +35,7 @@ int main() {
         red_black_tree.insert(45,0);
 
         // Perform an in order traversal
-        binary_search_tree.in_order_traversal();
+        red_black_tree.in_order_traversal();
 
         return 0;
 }
