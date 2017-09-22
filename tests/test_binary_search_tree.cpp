@@ -27,7 +27,7 @@ SCENARIO("Test Binary Search Tree") {
                                 REQUIRE(result == nullptr);
                         }
                 }
-                WHEN("The Binary Search Tree is not empty") {
+                WHEN("Nodes are inserted in random order") {
                         REQUIRE(binary_search_tree.insert(4 , -10) == true);
                         REQUIRE(binary_search_tree.insert(2 ,  30) == true);
                         REQUIRE(binary_search_tree.insert(90, -74) == true);
@@ -65,6 +65,78 @@ SCENARIO("Test Binary Search Tree") {
                                 REQUIRE(result != nullptr);
                                 REQUIRE(result->key == 3);
                                 REQUIRE(result->value == 1);
+                        }
+                }
+                WHEN("Nodes are inserted in ascending order") {
+                        for (int i = 0; i < 10; i++) {
+                                REQUIRE(binary_search_tree.insert(i, i*i) == true);
+                        }
+                        THEN("Test empty") {
+                                REQUIRE(binary_search_tree.empty() == false);
+                        }
+                        THEN("Test size") {
+                                REQUIRE(binary_search_tree.size() == 10);
+                        }
+                        THEN("Test height") {
+                                REQUIRE(binary_search_tree.height() == 10);
+                        }
+                        THEN("Test maximum") {
+                                auto max = binary_search_tree.maximum();
+                                REQUIRE(max != nullptr);
+                                REQUIRE(max->key == 9);
+                                REQUIRE(max->value == 81);
+                        }
+                        THEN("Test minimum") {
+                                auto min = binary_search_tree.minimum();
+                                REQUIRE(min != nullptr);
+                                REQUIRE(min->key == 0);
+                                REQUIRE(min->value == 0);
+                        }
+                        THEN("Test search for a node that does not exist") {
+                                auto result = binary_search_tree.search(1337);
+                                REQUIRE(result == nullptr);
+                        }
+                        THEN("Test search for a node that does exist") {
+                                auto result = binary_search_tree.search(3);
+                                REQUIRE(result != nullptr);
+                                REQUIRE(result->key == 3);
+                                REQUIRE(result->value == 9);
+                        }
+                }
+                WHEN("Nodes are inserted in descending order") {
+                        for (int i = 9; i >= 0; i--) {
+                                REQUIRE(binary_search_tree.insert(i, i*i) == true);
+                        }
+                        THEN("Test empty") {
+                                REQUIRE(binary_search_tree.empty() == false);
+                        }
+                        THEN("Test size") {
+                                REQUIRE(binary_search_tree.size() == 10);
+                        }
+                        THEN("Test height") {
+                                REQUIRE(binary_search_tree.height() == 10);
+                        }
+                        THEN("Test maximum") {
+                                auto max = binary_search_tree.maximum();
+                                REQUIRE(max != nullptr);
+                                REQUIRE(max->key == 9);
+                                REQUIRE(max->value == 81);
+                        }
+                        THEN("Test minimum") {
+                                auto min = binary_search_tree.minimum();
+                                REQUIRE(min != nullptr);
+                                REQUIRE(min->key == 0);
+                                REQUIRE(min->value == 0);
+                        }
+                        THEN("Test search for a node that does not exist") {
+                                auto result = binary_search_tree.search(1337);
+                                REQUIRE(result == nullptr);
+                        }
+                        THEN("Test search for a node that does exist") {
+                                auto result = binary_search_tree.search(3);
+                                REQUIRE(result != nullptr);
+                                REQUIRE(result->key == 3);
+                                REQUIRE(result->value == 9);
                         }
                 }
         }
