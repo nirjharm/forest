@@ -51,7 +51,7 @@ int main(int argc, char const *argv[]) {
         auto n = binary_search_tree.search(3);
         if (n != nullptr) {
                 std::cout << std::endl;
-                std::cout << "Searching for node with key 3" << std::endl;
+                std::cout << "Found node with key 3" << std::endl;
                 std::cout << std::endl;
                 n->info();
         }
