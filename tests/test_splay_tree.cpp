@@ -27,7 +27,7 @@ SCENARIO("Test Splay Tree") {
                                 REQUIRE(result == nullptr);
                         }
                 }
-                WHEN("The Splay Tree is not empty") {
+                WHEN("Nodes are inserted in random order") {
                         REQUIRE(splay_tree.insert(4 , -10) == true);
                         REQUIRE(splay_tree.insert(2 ,  30) == true);
                         REQUIRE(splay_tree.insert(90, -74) == true);
@@ -65,6 +65,78 @@ SCENARIO("Test Splay Tree") {
                                 REQUIRE(result != nullptr);
                                 REQUIRE(result->key == 3);
                                 REQUIRE(result->value == 1);
+                        }
+                }
+                WHEN("Nodes are inserted in ascending order") {
+                        for (int i = 0; i < 10; i++) {
+                                REQUIRE(splay_tree.insert(i, i*i) == true);
+                        }
+                        THEN("Test empty") {
+                                REQUIRE(splay_tree.empty() == false);
+                        }
+                        THEN("Test size") {
+                                REQUIRE(splay_tree.size() == 10);
+                        }
+                        THEN("Test height") {
+                                REQUIRE(splay_tree.height() == 10);
+                        }
+                        THEN("Test maximum") {
+                                auto max = splay_tree.maximum();
+                                REQUIRE(max != nullptr);
+                                REQUIRE(max->key == 9);
+                                REQUIRE(max->value == 81);
+                        }
+                        THEN("Test minimum") {
+                                auto min = splay_tree.minimum();
+                                REQUIRE(min != nullptr);
+                                REQUIRE(min->key == 0);
+                                REQUIRE(min->value == 0);
+                        }
+                        THEN("Test search for a node that does not exist") {
+                                auto result = splay_tree.search(1337);
+                                REQUIRE(result == nullptr);
+                        }
+                        THEN("Test search for a node that does exist") {
+                                auto result = splay_tree.search(3);
+                                REQUIRE(result != nullptr);
+                                REQUIRE(result->key == 3);
+                                REQUIRE(result->value == 9);
+                        }
+                }
+                WHEN("Nodes are inserted in descending order") {
+                        for (int i = 9; i >= 0; i--) {
+                                REQUIRE(splay_tree.insert(i, i*i) == true);
+                        }
+                        THEN("Test empty") {
+                                REQUIRE(splay_tree.empty() == false);
+                        }
+                        THEN("Test size") {
+                                REQUIRE(splay_tree.size() == 10);
+                        }
+                        THEN("Test height") {
+                                REQUIRE(splay_tree.height() == 10);
+                        }
+                        THEN("Test maximum") {
+                                auto max = splay_tree.maximum();
+                                REQUIRE(max != nullptr);
+                                REQUIRE(max->key == 9);
+                                REQUIRE(max->value == 81);
+                        }
+                        THEN("Test minimum") {
+                                auto min = splay_tree.minimum();
+                                REQUIRE(min != nullptr);
+                                REQUIRE(min->key == 0);
+                                REQUIRE(min->value == 0);
+                        }
+                        THEN("Test search for a node that does not exist") {
+                                auto result = splay_tree.search(1337);
+                                REQUIRE(result == nullptr);
+                        }
+                        THEN("Test search for a node that does exist") {
+                                auto result = splay_tree.search(3);
+                                REQUIRE(result != nullptr);
+                                REQUIRE(result->key == 3);
+                                REQUIRE(result->value == 9);
                         }
                 }
         }
