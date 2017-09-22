@@ -33,10 +33,14 @@ int main(int argc, char const *argv[]) {
         std::cout << std::endl;
 
         auto min = red_black_tree.minimum();
-        std::cout << "Minimum: " << min->key << std::endl;
+        if (min != nullptr) {
+                std::cout << "Minimum: " << min->key << std::endl;
+        }
 
         auto max = red_black_tree.maximum();
-        std::cout << "Maximum: " << max->key << std::endl;
+        if (max != nullptr) {
+                std::cout << "Maximum: " << max->key << std::endl;
+        }
 
         std::cout << "Height: " << red_black_tree.height() << std::endl;
 
