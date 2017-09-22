@@ -2,8 +2,8 @@
  * @file red_black_tree.h
  */
 
-#ifndef RED_BLACK_TREE_H
-#define RED_BLACK_TREE_H
+#ifndef red_black_TREE_H
+#define red_black_TREE_H
 
 #include <iostream>
 #include <algorithm>
@@ -129,7 +129,6 @@ namespace forest {
                                 if(y != nullptr) {
                                         y->left = x;
                                 }
-                                std::swap(x->color, y->color);
                                 x->parent = y;
                         }
                         void right_rotate(node <key_t, value_t> *x) {
@@ -149,7 +148,6 @@ namespace forest {
                                 if(y != nullptr) {
                                         y->right = x;
                                 }
-                                std::swap(x->color, y->color);
                                 x->parent = y;
                         }
                         node <key_t, value_t> *find_sibling(node <key_t, value_t> *x) {
@@ -176,23 +174,69 @@ namespace forest {
                                 return nullptr;
                         }
                         void fix(node <key_t, value_t> *x) {
-                                node <key_t, value_t> *parent = find_parent(x);
-                                node <key_t, value_t> *grand_parent = find_grand_parent(x);
-                                node <key_t, value_t> *uncle = find_uncle(x);
-                                while (x != root && x->color != black && parent->color == red) {
-                                        if (uncle != nullptr && uncle->color == red) {
-                                                grand_parent->color = red;
-                                                parent->color = black;
-                                                uncle->color = black;
-                                        } else {
-                                                if (x == parent->right) {
-                                                        left_rotate(parent);
+                                node <key_t, value_t> *parent = NULL;
+                                node <key_t, value_t> *grand_parent = NULL;
+                                while ((x != root) && (x->color != black) && (x->parent->color == red)) {
+                                        parent = x->parent;
+                                        grand_parent = x->parent->parent;
+                                        /**
+                                         * @brief Case A - Parent of x is left child of the grand parent of x
+                                         */
+                                        if (parent == grand_parent->left) {
+                                                node <key_t, value_t> *uncle = grand_parent->right;
+                                                /**
+                                                 * @brief Case 1 - The uncle of x is also red. Only recoloring is required
+                                                 */
+                                                if (uncle != NULL && uncle->color == red) {
+                                                        grand_parent->color = red;
+                                                        parent->color = black;
+                                                        uncle->color = black;
+                                                        x = grand_parent;
+                                                } else {
+                                                        /**
+                                                         * @brief Case 2 - x is right child of its parent. Left rotation is required
+                                                         */
+                                                        if (x == parent->right) {
+                                                                left_rotate(parent);
+                                                                x = parent;
+                                                                parent = x->parent;
+                                                        }
+                                                        /**
+                                                         * @brief Case 3 - x is left child of its parent. Right rotation is required
+                                                         */
                                                         right_rotate(grand_parent);
-                                                } else if (x == parent->left) {
-                                                        right_rotate(parent);
-                                                        left_rotate(grand_parent);
+                                                        std::swap(parent->color, grand_parent->color);
+                                                        x = parent;
                                                 }
-                                                std::swap(parent->color, grand_parent->color);
+                                        } else {
+                                                /**
+                                                 * @brief Case B - Parent of x is right child of the grand parent of x
+                                                 */
+                                                node <key_t, value_t> *uncle = grand_parent->left;
+                                                /**
+                                                 * @brief Case 1 - The uncle of x is also red. Only recoloring required
+                                                 */
+                                                if ((uncle != NULL) && (uncle->color == red)) {
+                                                        grand_parent->color = red;
+                                                        parent->color = black;
+                                                        uncle->color = black;
+                                                        x = grand_parent;
+                                                } else {
+                                                        /**
+                                                         * @brief Case 2 - x is left child of its parent. Right rotation is required
+                                                         */
+                                                        if (x == parent->left) {
+                                                                right_rotate(parent);
+                                                                x = parent;
+                                                                parent = x->parent;
+                                                        }
+                                                        /**
+                                                         * @brief Case 3 - x is right child of its parent. Left rotation is required
+                                                         */
+                                                        left_rotate(grand_parent);
+                                                        std::swap(parent->color, grand_parent->color);
+                                                        x = parent;
+                                                }
                                         }
                                 }
                                 root->color = black;
