@@ -56,5 +56,7 @@ int main(int argc, char const *argv[]) {
                 n->info();
         }
 
+        binary_search_tree.graphviz("binary_search_tree.dot");
+
         return 0;
 }
