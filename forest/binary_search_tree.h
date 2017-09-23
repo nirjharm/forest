@@ -8,6 +8,7 @@
 #include <iostream>
 #include <algorithm>
 #include <queue>
+#include <fstream>
 
 /**
  * @brief The forest library namespace
@@ -104,6 +105,25 @@ namespace forest {
                                 if (x == nullptr) return 0;
                                 return size(x->left) + size(x->right) + 1;
                         }
+                        void graphviz(std::ofstream &file, node <key_t, value_t> *x, unsigned long long *count) {
+                                if (x == nullptr) return;
+                                graphviz(file, x->left, count);
+                                if (x->left != nullptr) {
+                                        file << "\t" << x->key << " -> " << x->left->key << ";" << std::endl;
+                                } else {
+                                        file << "\t" << "null" << *count << " " << "[shape=point]" << ";" << std::endl;
+                                        file << "\t" << x->key << " -> " << "null" << *count << ";" << std::endl;
+                                        (*count)++;
+                                }
+                                if (x->right != nullptr) {
+                                        file << "\t" << x->key << " -> " << x->right->key << ";" << std::endl;
+                                } else {
+                                        file << "\t" << "null" << *count << " " << "[shape=point]" << ";" << std::endl;
+                                        file << "\t" << x->key << " -> " << "null" << *count << ";" << std::endl;
+                                        (*count)++;
+                                }
+                                graphviz(file, x->right, count);
+                        }
                 public:
                         tree() {
                                 root = nullptr;
@@ -138,6 +158,15 @@ namespace forest {
                          */
                         void breadth_first_traversal() {
                                 breadth_first_traversal(root);
+                        }
+                        void graphviz(std::string filename) {
+                                std::ofstream file;
+                                unsigned long long count = 0;
+                                file.open(filename);
+                                file << "digraph {" << std::endl;
+                                graphviz(file, root, &count);
+                                file << "}" << std::endl;
+                                file.close();
                         }
                         /**
                          * @brief Inserts a new node into the binary search tree
