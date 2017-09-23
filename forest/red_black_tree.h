@@ -96,7 +96,7 @@ namespace forest {
                                 std::queue <node <key_t, value_t> *> queue;
                                 if (x == nullptr) return;
                                 queue.push(x);
-                                while(queue.size() > 0) {
+                                while(queue.empty() == false) {
                                         node <key_t, value_t> *y = queue.front();
                                         y->info();
                                         queue.pop();
