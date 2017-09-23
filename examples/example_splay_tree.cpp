@@ -56,5 +56,7 @@ int main(int argc, char const *argv[]) {
                 n->info();
         }
 
+        splay_tree.graphviz("splay_tree.dot");
+
         return 0;
 }

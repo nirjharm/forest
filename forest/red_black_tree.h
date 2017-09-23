@@ -8,6 +8,7 @@
 #include <iostream>
 #include <algorithm>
 #include <queue>
+#include <fstream>
 
 /**
  * @brief The forest library namespace
@@ -111,6 +112,55 @@ namespace forest {
                         unsigned long long size(node <key_t, value_t> *x) {
                                 if (x == nullptr) return 0;
                                 return size(x->left) + size(x->right) + 1;
+                        }
+                        void graphviz(std::ofstream &file, node <key_t, value_t> *x, unsigned long long *count) {
+                                if (x == nullptr) return;
+                                graphviz(file, x->left, count);
+                                if (x->left != nullptr) {
+                                        if (x->color == red) {
+                                                file << "\t" << x->key << " " << "[style=filled, fontcolor=white, fillcolor=red, color=red];" << std::endl;
+                                                if (x->left->color == red) {
+                                                        file << "\t" << x->left->key << " " << "[style=filled, fontcolor=white, fillcolor=red, color=red]" << ";" << std::endl;
+                                                } else if (x->left->color == black) {
+                                                        file << "\t" << x->left->key << " " << "[style=filled, fontcolor=white, fillcolor=black, color=black]" << ";" << std::endl;
+                                                }
+                                        } else if (x->color == black) {
+                                                file << "\t" << x->key << " " << "[style=filled, fontcolor=white, fillcolor=black, color=black];" << std::endl;
+                                                if (x->left->color == red) {
+                                                        file << "\t" << x->left->key << " " << "[style=filled, fontcolor=white, fillcolor=red, color=red]" << ";" << std::endl;
+                                                } else if (x->left->color == black) {
+                                                        file << "\t" << x->left->key << " " << "[style=filled, fontcolor=white, fillcolor=black, color=black]" << ";" << std::endl;
+                                                }
+                                        }
+                                        file << "\t" << x->key << " -> " << x->left->key << ";" << std::endl;
+                                } else {
+                                        file << "\t" << "null" << *count << " " << "[shape=point, style=filled, fontcolor=white, fillcolor=black, color=black]" << ";" << std::endl;
+                                        file << "\t" << x->key << " -> " << "null" << *count << ";" << std::endl;
+                                        (*count)++;
+                                }
+                                if (x->right != nullptr) {
+                                        if (x->color == red) {
+                                                file << "\t" << x->key << " " << "[style=filled, fontcolor=white, fillcolor=red, color=red];" << std::endl;
+                                                if (x->right->color == red) {
+                                                        file << "\t" << x->right->key << " " << "[style=filled, fontcolor=white, fillcolor=red, color=red]" << ";" << std::endl;
+                                                } else if (x->right->color == black) {
+                                                        file << "\t" << x->right->key << " " << "[style=filled, fontcolor=white, fillcolor=black, color=black]" << ";" << std::endl;
+                                                }
+                                        } else if (x->color == black) {
+                                                file << "\t" << x->key << " " << "[style=filled, fontcolor=white, fillcolor=black, color=black];" << std::endl;
+                                                if (x->right->color == red) {
+                                                        file << "\t" << x->right->key << " " << "[style=filled, fontcolor=white, fillcolor=red, color=red]" << ";" << std::endl;
+                                                } else if (x->right->color == black) {
+                                                        file << "\t" << x->right->key << " " << "[style=filled, fontcolor=white, fillcolor=black, color=black]" << ";" << std::endl;
+                                                }
+                                        }
+                                        file << "\t" << x->key << " -> " << x->right->key << ";" << std::endl;
+                                } else {
+                                        file << "\t" << "null" << *count << " " << "[shape=point, style=filled, fontcolor=white, fillcolor=black, color=black]" << ";" << std::endl;
+                                        file << "\t" << x->key << " -> " << "null" << *count << ";" << std::endl;
+                                        (*count)++;
+                                }
+                                graphviz(file, x->right, count);
                         }
                         void left_rotate(node <key_t, value_t> *x) {
                                 node <key_t, value_t> *y = x->right;
@@ -282,6 +332,15 @@ namespace forest {
                          * @param value The value for the new node
                          * @return true if the new node was inserted and false otherwise
                          */
+                        void graphviz(std::string filename) {
+                                std::ofstream file;
+                                unsigned long long count = 0;
+                                file.open(filename);
+                                file << "digraph {" << std::endl;
+                                graphviz(file, root, &count);
+                                file << "}" << std::endl;
+                                file.close();
+                        }
                         bool insert(key_t key, value_t value) {
                                 node <key_t, value_t> *current = root;
                                 node <key_t, value_t> *parent = nullptr;
