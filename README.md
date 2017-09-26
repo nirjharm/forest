@@ -5,6 +5,7 @@ Forest is an open source, template library of tree data structures written in C+
 ## Installation
 
 #### Linux / macOS
+
 ```
 $ git clone https://github.com/xorz57/forest.git
 $ cd forest
@@ -23,7 +24,7 @@ Forest is best explained through examples. The following source code generates a
 
 int main() {
         // Generate a binary search tree for nodes of integer keys and values
-        forest::red_black_tree::tree <int, int> red_black_tree;
+        forest::red_black_tree <int, int> red_black_tree;
 
         // Insert 7 nodes in the form of a (key, value) pair
         red_black_tree.insert(4,0);
