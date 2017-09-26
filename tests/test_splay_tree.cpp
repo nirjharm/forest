@@ -3,7 +3,7 @@
 
 SCENARIO("Test Splay Tree") {
         GIVEN("A Splay Tree") {
-                forest::splay_tree::tree <int, int> splay_tree;
+                forest::splay_tree <int, int> splay_tree;
                 WHEN("The Splay Tree is empty") {
                         THEN("Test empty") {
                                 REQUIRE(splay_tree.empty() == true);
