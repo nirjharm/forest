@@ -2,7 +2,7 @@
 #include <iostream>
 
 int main(int argc, char const *argv[]) {
-        forest::binary_search_tree::tree <int, int> binary_search_tree;
+        forest::binary_search_tree <int, int> binary_search_tree;
 
         binary_search_tree.insert(4,0);
         binary_search_tree.insert(2,0);

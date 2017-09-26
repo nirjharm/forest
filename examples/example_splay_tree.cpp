@@ -2,7 +2,7 @@
 #include <iostream>
 
 int main(int argc, char const *argv[]) {
-        forest::splay_tree::tree <int, int> splay_tree;
+        forest::splay_tree <int, int> splay_tree;
 
         splay_tree.insert(4,0);
         splay_tree.insert(2,0);
