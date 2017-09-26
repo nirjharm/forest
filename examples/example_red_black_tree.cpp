@@ -2,7 +2,7 @@
 #include <iostream>
 
 int main(int argc, char const *argv[]) {
-        forest::red_black_tree::tree <int, int> red_black_tree;
+        forest::red_black_tree <int, int> red_black_tree;
 
         red_black_tree.insert(4,0);
         red_black_tree.insert(2,0);
