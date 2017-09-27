@@ -164,7 +164,7 @@ namespace forest {
                  * @param value The value for the new node
                  * @return true if the new node was inserted and false otherwise
                  */
-                bool insert(key_t key, value_t value) {
+                const binary_search_tree_node <key_t, value_t> *insert(key_t key, value_t value) {
                         binary_search_tree_node <key_t, value_t> *current = root;
                         binary_search_tree_node <key_t, value_t> *parent = nullptr;
                         while(current!=nullptr) {
@@ -174,7 +174,7 @@ namespace forest {
                                 } else if (key < current->key) {
                                         current = current->left;
                                 } else {
-                                        return false;
+                                        return nullptr;
                                 }
                         }
                         current = new binary_search_tree_node <key_t, value_t> (key, value);
@@ -186,7 +186,7 @@ namespace forest {
                         } else if (current->key < parent->key) {
                                 parent->left = current;
                         }
-                        return true;
+                        return current;
                 }
                 /**
                  * @brief Performs a binary search starting from the root node
