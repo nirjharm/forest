@@ -28,13 +28,13 @@ SCENARIO("Test Binary Search Tree") {
                         }
                 }
                 WHEN("Nodes are inserted in random order") {
-                        REQUIRE(binary_search_tree.insert(4 , -10) == true);
-                        REQUIRE(binary_search_tree.insert(2 ,  30) == true);
-                        REQUIRE(binary_search_tree.insert(90, -74) == true);
-                        REQUIRE(binary_search_tree.insert(3 ,   1) == true);
-                        REQUIRE(binary_search_tree.insert(0 ,-110) == true);
-                        REQUIRE(binary_search_tree.insert(14,   0) == true);
-                        REQUIRE(binary_search_tree.insert(45,   0) == true);
+                        REQUIRE(binary_search_tree.insert(4 , -10) != nullptr);
+                        REQUIRE(binary_search_tree.insert(2 ,  30) != nullptr);
+                        REQUIRE(binary_search_tree.insert(90, -74) != nullptr);
+                        REQUIRE(binary_search_tree.insert(3 ,   1) != nullptr);
+                        REQUIRE(binary_search_tree.insert(0 ,-110) != nullptr);
+                        REQUIRE(binary_search_tree.insert(14,   0) != nullptr);
+                        REQUIRE(binary_search_tree.insert(45,   0) != nullptr);
                         THEN("Test empty") {
                                 REQUIRE(binary_search_tree.empty() == false);
                         }
@@ -69,7 +69,7 @@ SCENARIO("Test Binary Search Tree") {
                 }
                 WHEN("Nodes are inserted in ascending order") {
                         for (int i = 0; i < 10; i++) {
-                                REQUIRE(binary_search_tree.insert(i, i*i) == true);
+                                REQUIRE(binary_search_tree.insert(i, i*i) != nullptr);
                         }
                         THEN("Test empty") {
                                 REQUIRE(binary_search_tree.empty() == false);
@@ -105,7 +105,7 @@ SCENARIO("Test Binary Search Tree") {
                 }
                 WHEN("Nodes are inserted in descending order") {
                         for (int i = 9; i >= 0; i--) {
-                                REQUIRE(binary_search_tree.insert(i, i*i) == true);
+                                REQUIRE(binary_search_tree.insert(i, i*i) != nullptr);
                         }
                         THEN("Test empty") {
                                 REQUIRE(binary_search_tree.empty() == false);

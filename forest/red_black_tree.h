@@ -331,7 +331,7 @@ namespace forest {
                         file << "}" << std::endl;
                         file.close();
                 }
-                bool insert(key_t key, value_t value) {
+                const red_black_tree_node <key_t, value_t> *insert(key_t key, value_t value) {
                         red_black_tree_node <key_t, value_t> *current = root;
                         red_black_tree_node <key_t, value_t> *parent = nullptr;
                         while(current!=nullptr) {
@@ -341,7 +341,7 @@ namespace forest {
                                 } else if (key < current->key) {
                                         current = current->left;
                                 } else {
-                                        return false;
+                                        return nullptr;
                                 }
                         }
                         current = new red_black_tree_node <key_t, value_t> (key, value, red);
@@ -354,7 +354,7 @@ namespace forest {
                                 parent->left = current;
                         }
                         fix(current);
-                        return true;
+                        return current;
                 }
                 /**
                  * @brief Performs a binary search starting from the root node
