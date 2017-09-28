@@ -219,6 +219,11 @@ namespace forest {
                 void breadth_first_traversal() {
                         breadth_first_traversal(root);
                 }
+                /**
+                 * @brief Generates a .dot file representing the Splay Tree
+                 * @param filename The filename of the .dot file
+                 * @return void
+                 */
                 void graphviz(std::string filename) {
                         std::ofstream file;
                         unsigned long long count = 0;
@@ -229,7 +234,7 @@ namespace forest {
                         file.close();
                 }
                 /**
-                 * @brief Inserts a new node into the splay tree
+                 * @brief Inserts a new node into the Splay Tree
                  * @param key The key for the new node
                  * @param value The value for the new node
                  * @return true if the new node was inserted and false otherwise
