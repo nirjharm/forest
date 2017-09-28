@@ -1,0 +1,18 @@
+machine:
+  services:
+    - docker
+
+dependencies:
+  override:
+    - docker info
+
+compile:
+  override:
+    - docker build --rm=false -t xorz57/forest:latest .
+
+test:
+  override:
+    - docker run xorz57/forest ./bsearch
+    - docker run xorz57/forest ./rbtree
+    - docker run xorz57/forest ./stree
+    - docker run xorz57/forest ./forest_test
