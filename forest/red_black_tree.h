@@ -14,7 +14,7 @@
  * @brief The forest library namespace
  */
 namespace forest {
-        enum color_t {red, black};
+        enum color_t {red, black}; ///< Color data type for the nodes of a red black tree.
         template <typename key_t, typename value_t>
         struct red_black_tree_node {
                 key_t key;     ///< The key of the node
@@ -317,10 +317,9 @@ namespace forest {
                         breadth_first_traversal(root);
                 }
                 /**
-                 * @brief Inserts a new node into the red black tree
-                 * @param key The key for the new node
-                 * @param value The value for the new node
-                 * @return true if the new node was inserted and false otherwise
+                 * @brief Generates a .dot file representing the Red Black Tree
+                 * @param filename The filename of the .dot file
+                 * @return void
                  */
                 void graphviz(std::string filename) {
                         std::ofstream file;
@@ -331,6 +330,12 @@ namespace forest {
                         file << "}" << std::endl;
                         file.close();
                 }
+                /**
+                 * @brief Inserts a new node into the Red Black Tree
+                 * @param key The key for the new node
+                 * @param value The value for the new node
+                 * @return true if the new node was inserted and false otherwise
+                 */
                 const red_black_tree_node <key_t, value_t> *insert(key_t key, value_t value) {
                         red_black_tree_node <key_t, value_t> *current = root;
                         red_black_tree_node <key_t, value_t> *parent = nullptr;
