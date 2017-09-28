@@ -317,7 +317,7 @@ namespace forest {
                         breadth_first_traversal(root);
                 }
                 /**
-                 * @brief Generates a .dot file representing the Red Black Tree
+                 * @brief Generates a DOT file representing the Red Black Tree
                  * @param filename The filename of the .dot file
                  * @return void
                  */
